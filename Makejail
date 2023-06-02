@@ -1,0 +1,27 @@
+INCLUDE options/options.makejail
+
+ARG agent_ip=10.0.0.3
+ARG agent_name=agent01
+ARG server_ip=10.0.0.2
+ARG network=wazuh-net
+
+CMD sed -e "s|quarterly|latest|g" -i.bak /etc/pkg/FreeBSD.conf
+
+PKG bash wazuh-agent
+
+CMD cp /etc/localtime /var/ossec/etc
+CMD touch /var/ossec/logs/active-responses.log
+CMD chmod 740 /var/ossec/logs/active-responses.log
+CMD touch /var/log/syslog
+CMD chmod 740 /var/log/syslog
+
+COPY files/var/ossec/etc/ossec.conf /var/ossec/etc
+
+REPLACE /var/ossec/etc/ossec.conf SERVER_IP ${server_ip}
+
+CMD chmod 660 /var/ossec/etc/ossec.conf
+CMD chown root:wazuh /var/ossec/etc/ossec.conf
+
+SYSRC wazuh_agent_enable=YES
+
+SERVICE wazuh-agent start

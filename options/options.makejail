@@ -1,0 +1,7 @@
+OPTION template=files/template.conf
+OPTION resolv_conf
+OPTION tzdata
+OPTION overwrite
+OPTION virtualnet=${network}:${agent_name} address:${agent_ip} default
+OPTION nat=network:${network}
+OPTION start
