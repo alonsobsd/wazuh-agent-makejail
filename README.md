@@ -48,7 +48,7 @@ it will create a bridge named wazuh-net in where wazuh-agent jail epair interfac
 ```sh
 pass out quick on wazuh-net inet proto { tcp udp } from 10.0.0.3 to any
 ```
-Also, you need add a pass rule from wazuh-net network to wazuh-manager. In this example, wazuh-manager is running at 10.0.0.2
+Also, you need add a rule for permit pass traffic from wazuh-net (10.0.0.0/24) network to wazuh-manager. In this example, wazuh-manager is running at 10.0.0.2
 
 ```sh
 pass in inet proto { tcp udp } from 10.0.0.0/24 to 10.0.0.2
@@ -58,9 +58,9 @@ pass in inet proto { tcp udp } from 10.0.0.0/24 to 10.0.0.2
 Create a container named agent01 with a private IP address 10.0.0.3. Take on mind IP address must be part of wazuh-net network
 
 ```sh
-# appjail makejail -f gh+alonsobsd/wazuh-makejail -j agent01 -- --network wazuh-net --agent_ip 10.0.0.3 --agent_name agent01 --server_ip 10.0.0.2
+# appjail makejail -f gh+alonsobsd/wazuh-agent-makejail -j agent01 -- --network wazuh-net --agent_ip 10.0.0.3 --agent_name agent01 --server_ip 10.0.0.2
 ```
-When it is done, agent01 (10.0.0.3) will try connect to wazuh-manager (10.0.0.2) for auth process. Both usgin wazuh-net like virtualnet
+When it is done, agent01 (10.0.0.3) will try connect to wazuh-manager (10.0.0.2) for auth process. Both using wazuh-net like virtualnet
 
 ## License
 This project is licensed under the BSD-3-Clause license.
