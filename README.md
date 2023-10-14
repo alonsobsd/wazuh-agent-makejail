@@ -58,7 +58,7 @@ pass in inet proto { tcp udp } from 10.0.0.0/24 to 10.0.0.2
 Create a container named agent01 with a private IP address 10.0.0.3. Take on mind IP address must be part of wazuh-net network
 
 ```sh
-# appjail makejail -f gh+alonsobsd/wazuh-agent-makejail -j agent01 -- --network wazuh-net --agent_ip 10.0.0.3 --agent_name agent01 --server_ip 10.0.0.2
+# appjail makejail -f gh+alonsobsd/wazuh-agent-makejail -j agent01 -- --network wazuh-net --agent_ip 10.0.0.3 --agent_name agent01 --server_ip 10.0.0.2 --enrollment managerpasswordenrollment
 ```
 When it is done, agent01 (10.0.0.3) will try connect to wazuh-manager (10.0.0.2) for auth process. Both using wazuh-net like virtualnet
 
