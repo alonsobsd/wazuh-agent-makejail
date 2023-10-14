@@ -4,7 +4,7 @@ ARG agent_ip=10.0.0.3
 ARG agent_name=agent01
 ARG server_ip=10.0.0.2
 ARG network=wazuh-net
-ARG enrollment=
+ARG enrollment
 
 CMD sed -e "s|quarterly|latest|g" -i.bak /etc/pkg/FreeBSD.conf
 
