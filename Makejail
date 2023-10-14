@@ -4,6 +4,7 @@ ARG agent_ip=10.0.0.3
 ARG agent_name=agent01
 ARG server_ip=10.0.0.2
 ARG network=wazuh-net
+ARG enrollment=
 
 CMD sed -e "s|quarterly|latest|g" -i.bak /etc/pkg/FreeBSD.conf
 
@@ -21,6 +22,12 @@ REPLACE /var/ossec/etc/ossec.conf SERVER_IP ${server_ip}
 
 CMD chmod 660 /var/ossec/etc/ossec.conf
 CMD chown root:wazuh /var/ossec/etc/ossec.conf
+
+CMD touch /var/ossec/etc/authd.pass
+CMD chmod 640 /var/ossec/etc/authd.pass
+CMD chown root:wazuh /var/ossec/etc/authd.pass
+
+CMD echo ${enrollment} > /var/ossec/etc/authd.pass
 
 SYSRC wazuh_agent_enable=YES
 
